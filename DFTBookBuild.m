@@ -3,12 +3,12 @@ function W = DFTBookBuild(M_H,M_V)
 % spacing
 % M_H: number of antenna elements on horizental axis
 % M_V: number of antenna elements on vertical axis
-% W: norm 1 precoder
+% W: DFT precoder
 
 y = zeros(M_H,M_H); % DFT for Horizontal ULA
 z = zeros(M_V,M_V); % DFT for Vertical ULA
 
-% Horizental
+% Horizental DFT
 x = exp(-1i*2*pi/M_H);
 for i = 1:M_H
     for j = 1:M_H
@@ -16,7 +16,7 @@ for i = 1:M_H
     end
 end
 
-% Vertical
+% Vertical DFT
 x = exp(-1i*2*pi/M_V);
 for i = 1:M_V
     for j = 1:M_V
@@ -26,6 +26,5 @@ end
 
 % DFT Code book for UPA
 W = kron(z,y);
-W = W./vecnorm(W); % normalize to norm = 1
 
 end
