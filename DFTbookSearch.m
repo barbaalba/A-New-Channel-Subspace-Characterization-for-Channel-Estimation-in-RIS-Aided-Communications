@@ -12,8 +12,8 @@ N = 500;
 [X,Y,Z] = sphere(N);
 
 %% Prepare DFT Codebook
-W = DFTBookBuild(M,M); % Produced by kron product of 2 DFT matrix
-
+%W = DFTBookBuild(M,M); % Produced by kron product of 2 DFT matrix
+W = BuildDFT(M^2);
 %% For each precoder plot the sphere beamforming plot
 for i = 1:M^2
 %Prepare to compute channel gains on the sphere
@@ -40,7 +40,7 @@ gainMap = zeros(size(X));
     xlabel('$x$','Interpreter','Latex');
     ylabel('$y$','Interpreter','Latex');
     zlabel('$z$','Interpreter','Latex');
-    caxis([-5 pow2db(M^2)+5]); % limit the color map
+    caxis([-1 pow2db(M^2)]); % limit the color map
     colormap(flipud(hot));
     hBar = colorbar;
     set(hBar, 'TickLabelInterpreter', 'latex');
@@ -77,7 +77,7 @@ surf(X,Y,Z,pow2db(gainMap),'EdgeColor','none');
 xlabel('$x$','Interpreter','Latex');
 ylabel('$y$','Interpreter','Latex');
 zlabel('$z$','Interpreter','Latex');
-caxis([-5 pow2db(M^2)+5]);
+caxis([-1 pow2db(M^2)]);
 colormap(flipud(hot));
 hBar = colorbar;
 set(hBar, 'TickLabelInterpreter', 'latex');
