@@ -4,7 +4,7 @@ close all; clear; clc;
 freq = 28e9; % Central frequency
 lambda = physconst('LightSpeed') / freq; % Wavelength
 %Number of antennas in verical and horizental
-M = 4;
+M = 8;
 %Antenna spacing in wavelengths
 interAntennaSpacing = 1/4;
 %Prepare to plot colors on a sphere
@@ -43,7 +43,7 @@ gainMap = zeros(size(X));
     xlabel('$x$','Interpreter','Latex');
     ylabel('$y$','Interpreter','Latex');
     zlabel('$z$','Interpreter','Latex');
-    caxis([-20 pow2db(M^2)+5]); % limit the color map
+    caxis([-5 pow2db(M^2)+5]); % limit the color map
     colormap(flipud(hot));
     hBar = colorbar;
     set(hBar, 'TickLabelInterpreter', 'latex');
@@ -68,19 +68,19 @@ for i = 1:size(W,2)
     for n = 1:size(X,1)
         for m = 1:size(X,2)
         
-        %Compute received power according to (7.28) in "Massive MIMO networks"
+            %Compute received power according to (7.28) in "Massive MIMO networks"
             [phi2,theta2] = cart2sph(X(n,m),Y(n,m),Z(n,m));
-            gainMap(n,m) = M^2 * abs(UPA_Evaluate(lambda,M,M,phi2,theta2,interAntennaSpacing,interAntennaSpacing)'*W(:,i)).^2;
+            gainMap(n,m) = abs(UPA_Evaluate(lambda,M,M,phi2,theta2,interAntennaSpacing,interAntennaSpacing)'*W(:,i)).^2;
            
         end
     end
 
 figure;
-surf(X,Y,Z,10*log10(gainMap),'EdgeColor','none');
+surf(X,Y,Z,pow2db(gainMap),'EdgeColor','none');
 xlabel('$x$','Interpreter','Latex');
 ylabel('$y$','Interpreter','Latex');
 zlabel('$z$','Interpreter','Latex');
-caxis([-40 pow2db(M^2)]);
+caxis([-5 pow2db(M^2)+5]);
 colormap(flipud(hot));
 hBar = colorbar;
 set(hBar, 'TickLabelInterpreter', 'latex');
