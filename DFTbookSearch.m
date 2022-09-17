@@ -12,7 +12,7 @@ N = 500;
 [X,Y,Z] = sphere(N);
 
 %% Prepare DFT Codebook
-W = BuildDFT(M^2);
+W = DFTBookBuild(M,M);
 
 %% For each precoder plot the sphere beamforming plot
 for i = 1:M^2
@@ -25,7 +25,7 @@ gainMap = zeros(size(X));
         
             %Compute received power according to (7.28) in "Massive MIMO networks"
             [phi2,theta2] = cart2sph(X(n,m),Y(n,m),Z(n,m));
-            gainMap(n,m) = abs(UPA_Evaluate(lambda,M,M,phi2,theta2)'*W(:,i)).^2;
+            gainMap(n,m) = abs(UPA_Evaluate(lambda,M,M,phi2,theta2,interAntennaSpacing,interAntennaSpacing)'*W(:,i)).^2;
             if X(n,m) < 0
                 gainMap(n,m) = 0;
             end
@@ -36,7 +36,7 @@ gainMap = zeros(size(X));
     set(groot,'defaultAxesTickLabelInterpreter','latex'); 
 
     figure;
-    surf(X,Y,Z,10*log10(gainMap),'EdgeColor','none');
+    surf(X,Y,Z,pow2db(gainMap),'EdgeColor','none');
     xlabel('$x$','Interpreter','Latex');
     ylabel('$y$','Interpreter','Latex');
     zlabel('$z$','Interpreter','Latex');
