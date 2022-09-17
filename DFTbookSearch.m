@@ -4,7 +4,7 @@ close all; clear; clc;
 freq = 28e9; % Central frequency
 lambda = physconst('LightSpeed') / freq; % Wavelength
 %Number of antennas in verical and horizental
-M = 8;
+M = 4;
 %Antenna spacing in wavelengths
 interAntennaSpacing = 1/4;
 %Prepare to plot colors on a sphere
@@ -63,14 +63,14 @@ end
 %Compute interference gains on the sphere
 gainMap = zeros(size(X));
 [theta,phi] = UPA_BasisEl(lambda,M,M,interAntennaSpacing,interAntennaSpacing);
-W = UPA_Codebook(lambda,theta,phi,M,M);
+W = UPA_Codebook(lambda,theta,phi,M,M,interAntennaSpacing,interAntennaSpacing);
 for i = 1:size(W,2)
     for n = 1:size(X,1)
         for m = 1:size(X,2)
         
         %Compute received power according to (7.28) in "Massive MIMO networks"
             [phi2,theta2] = cart2sph(X(n,m),Y(n,m),Z(n,m));
-            gainMap(n,m) = M^2 * abs(UPA_Evaluate(lambda,M,M,phi2,theta2)'*W(:,i)).^2;
+            gainMap(n,m) = M^2 * abs(UPA_Evaluate(lambda,M,M,phi2,theta2,interAntennaSpacing,interAntennaSpacing)'*W(:,i)).^2;
            
         end
     end
