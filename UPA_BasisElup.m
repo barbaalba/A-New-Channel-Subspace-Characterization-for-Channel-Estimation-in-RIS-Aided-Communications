@@ -1,6 +1,7 @@
-function [theta,phi,bsnum] = UPA_BasisElup(M_V,M_H,d_V,d_H,azref)
-% This function evaluate the orthogonal basis for UPA structure
-% Input
+function [theta,phi,bsnum] = UPA_BasisElup(M_V,M_H,d_V,d_H,azref,elref)
+% This function evaluate the orthogonal basis for UPA structure depending
+% on the initial points
+% Input 
 %   M_V : number of antennas in vertical axis
 %   M_H : number of antennas in horizental axis
 %   d_V : normalized antenna spacing in vertical axis
@@ -14,14 +15,21 @@ L_V = M_V * d_V;
 L_H = M_H * d_H;
 
 %% first find the elevation orthogonal to 90 degree
-theta = [0]; % 0 as the elevation reference
+theta = [elref]; % 0 as the elevation reference
 for k = 1:M_V - 1 
     omega = k / L_V;
-    if mod(omega,1/d_V) <= 1
-        theta = [theta asin(omega)];
-    elseif mod(omega,-1/d_V) >= -1
-        omega = mod(omega,-1/d_V);
-        theta = [theta asin(omega)];
+    if mod(omega,1/d_V) <= 2
+        val = asin(omega + sin(elref));
+        if isreal(val)
+            theta = [theta val];
+        end
+    end
+    if mod(omega,-1/d_V) >= -2
+        val = mod(omega,-1/d_V) + sin(elref);
+        val = asin(val);
+        if isreal(val)
+            theta = [theta val];
+        end
     end
 end
 
