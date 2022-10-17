@@ -27,7 +27,7 @@ ylim([0,1]);
 yticks(0:0.1:1);
 xlim([1,length(M_H)]);
 xticks(1:6);
-xticklabels({'$4 \times 4$','$8 \times 8$','$16 \times 16$','$32 \times 32$','$64 \times 64$','$128 \times 128$'});
+xticklabels({'4 \times 4','8 \times 8','16 \times 16','32 \times 32','64 \times 64','128 \times 128'});
 legend('Proposed, \lambda/2','Asymp, \lambda/2','Proposed, \lambda/4','Asymp, \lambda/4');
 %% Figure Configuration
 ax = gca; % to get the axis handle
