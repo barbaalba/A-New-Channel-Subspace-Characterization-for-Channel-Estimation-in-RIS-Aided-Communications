@@ -15,20 +15,20 @@ Ratio = bsnum./M;
 AsympRatio = pi*d_H.*d_V;
 AsympRatio = repelem(AsympRatio,size(Ratio,1));
 AsympRatio = reshape(AsympRatio,length(M_V),length(d_V));
-figure('DefaultAxesFontSize',20,'defaultLineLineWidth',2);
+figure('DefaultAxesFontSize',20,'defaultLineLineWidth',2,'defaultAxesTickLabelInterpreter','latex');
 for i = 1:length(d_V)
     plot(Ratio(:,i),'-o','MarkerSize',10);
     hold on;
     plot(AsympRatio(:,i),'--','marker','diamond','MarkerSize',10);
 end
 grid on;
-ylabel('$\frac{\eta}{M}$','Interpreter','latex');
+ylabel('$\frac{\eta}{M}$','Interpreter','latex','FontSize',20);
 ylim([0,1]);
 yticks(0:0.1:1);
 xlim([1,length(M_H)]);
 xticks(1:6);
-xticklabels({'4 \times 4','8 \times 8','16 \times 16','32 \times 32','64 \times 64','128 \times 128'});
-legend('Proposed, \lambda/2','Asymp, \lambda/2','Proposed, \lambda/4','Asymp, \lambda/4');
+xticklabels({'$4 \times 4$','$8 \times 8$','$16 \times 16$','$32 \times 32$','$64 \times 64$','$128 \times 128$'});
+legend('Proposed, $\lambda/2$','Asymp, $\lambda/2$','Proposed, $\lambda/4$','Asymp, $\lambda/4$','interpreter','latex');
 %% Figure Configuration
 ax = gca; % to get the axis handle
 ax.XLabel.Units = 'normalized'; % Normalized unit instead of 'Data' unit 
