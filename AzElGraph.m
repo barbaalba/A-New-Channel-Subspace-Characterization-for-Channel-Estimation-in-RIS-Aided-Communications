@@ -17,7 +17,7 @@ azref = deg2rad(90); % one reference angle only
 num = zeros(length(elref),length(azref));
 for j = 1:length(elref)
     for i = 1:length(azref)
-        [theta,phi,num(j,i)] = UPA_BasisElup(M_V,M_H,RISspacing,RISspacing,azref(i),elref(j));  
+        [theta,phi,num(j,i)] = UPA_BasisElupnew(M_V,M_H,RISspacing,RISspacing,azref(i),elref(j));  
     end
 end
 
@@ -59,7 +59,7 @@ if length(elref)>1 && length(azref)>1
 end
 
 %% AZ-EL Graph 
-figure('DefaultAxesFontSize',20,'defaultLineLineWidth',2)
+figure('DefaultAxesFontSize',20,'defaultLineLineWidth',2,'defaultAxesTickLabelInterpreter','latex')
 x = linspace(-90,90,360);
 fn = fieldnames(phi);
 for i = 1:length(theta)
@@ -73,12 +73,12 @@ for i = 1:length(theta)
 end
 xlim([-90,90]);
 ylim([-90,90]);
-xlabel('Azimuth');
-ylabel('Elevation');
+xlabel('Azimuth','Interpreter','latex');
+ylabel('Elevation','Interpreter','latex');
 xticks(-90:20:90);
-xticklabels({'-90','-70','-50','-30','-10','10','30','50','70','90'});
+xticklabels({'$-90$','$-70$','$-50$','$-30$','$-10$','$10$','$30$','$50$','$70$','$90$'});
 yticks(-90:20:90);
-yticklabels({'-90','-70','-50','-30','-10','10','30','50','70','90'});
+yticklabels({'$-90$','$-70$','$-50$','$-30$','$-10$','$10$','$30$','$50$','$70$','$90$'});
 grid on;
 % Figure Representation
 ax = gca; % to get the axis handle
