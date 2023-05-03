@@ -14,7 +14,7 @@ NUE = 100000; % number of instances
 azref = [pi/2,pi/2,pi/2]; elref = [1.3264,0.6109,1.1345];
 DOF = zeros(length(d_H),1);
 for i = 1:length(d_H)
-    [~,~,DOF(i)] = UPA_BasisElup(M_V,M_H,d_H(i),d_H(i),azref(i),elref(i));
+    [~,~,DOF(i)] = UPA_BasisElupnew(M_V,M_H,d_H(i),d_H(i),azref(i),elref(i));
 end
 
 %% Spatial Correlation 
