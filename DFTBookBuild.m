@@ -1,6 +1,6 @@
 function W = DFTBookBuild(M_H,M_V)
-% This function produces DFT code book for a UPA antenna with any antenna
-% spacing
+% This function produces DFT code book for a UPA antenna using Kronecker product
+% with any antenna spacing
 % M_H: number of antenna elements on horizental axis
 % M_V: number of antenna elements on vertical axis
 % W: DFT precoder
