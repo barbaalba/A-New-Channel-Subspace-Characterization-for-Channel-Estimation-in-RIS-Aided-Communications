@@ -12,8 +12,8 @@ N = 500;
 [X,Y,Z] = sphere(N);
 
 %% Prepare DFT Codebook
-%W = DFTBookBuild(M,M); % Produced by kron product of 2 DFT matrix
-W = BuildDFT(M^2);
+W = DFTBookBuild(M,M); % Produced by kron product of 2 DFT matrix
+%W = BuildDFT(M^2);
 %% For each precoder plot the sphere beamforming plot
 for i = 1:M^2
 %Prepare to compute channel gains on the sphere
@@ -21,7 +21,7 @@ gainMap = zeros(size(X));
 
     %Go through all azimuth and elevation angles
     for n = 1:size(X,1)
-        for m = 1:size(X,2)
+        parfor m = 1:size(X,2)
         
             %Compute received power according to (7.28) in "Massive MIMO networks"
             [phi2,theta2] = cart2sph(X(n,m),Y(n,m),Z(n,m));
@@ -89,3 +89,12 @@ view(122,30);
 hold on;
 plot3(x_circ,y_circ,zeros(size(x_circ)),'k:','LineWidth',2);
 end
+
+%% For Final Figures configuration
+ax = gca; % to get the axis handle
+ax.Position = [0.1175 0.1 0.7 0.8150]; % Set the position of inner axis with respect to
+                           % the figure border
+ax.XLabel.Position = [0.1419 1.1814 -1.375]; % position of the label with respect to 
+                                  % axis
+fig = gcf;
+set(fig,'position',[60 50 800 600]);
