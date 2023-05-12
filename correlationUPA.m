@@ -49,3 +49,41 @@ ax.XLabel.Position = [0.5 -0.07]; % position of the label with respect to
                                   % axis
 fig = gcf;
 set(fig,'position',[60 50 900 600]);
+
+%% Visualizaation of correlation among antennas
+R = abs(R);
+R = R/R(1); % Normalize it to 1
+figure;
+pcolor(R);
+colorbar;
+title("UPA with $d_H = d_V = $ " + d_H(end),'FontSize',20,'Interpreter','latex');
+% plot config
+ax = gca; % to get the axis handle
+ax.XLabel.Units = 'normalized'; % Normalized unit instead of 'Data' unit 
+ax.Position = [0.15 0.1 0.7 0.8]; % Set the position of inner axis with respect to
+                           % the figure border
+ax.XLabel.Position = [0.5 -0.07]; % position of the label with respect to 
+                                  % axis
+fig = gcf;
+set(fig,'position',[60 50 900 600]);
+
+%% compare correlation with ULA 
+d = 1/2;
+R = ULA_Evaluate(lambda,M,RIS_AOA,d);
+R = R * R' / NUE; % Correlation matrix
+R = R + R' / 2; % to fix numerical problem of complex eigenvalues
+R = abs(R);
+R = R/R(1);
+figure;
+pcolor(R);
+colorbar;
+title("ULA with $d_H = $ " + d,'FontSize',20,'Interpreter','latex');
+% plot config
+ax = gca; % to get the axis handle
+ax.XLabel.Units = 'normalized'; % Normalized unit instead of 'Data' unit 
+ax.Position = [0.15 0.1 0.7 0.8]; % Set the position of inner axis with respect to
+                           % the figure border
+ax.XLabel.Position = [0.5 -0.07]; % position of the label with respect to 
+                                  % axis
+fig = gcf;
+set(fig,'position',[60 50 900 600]);
