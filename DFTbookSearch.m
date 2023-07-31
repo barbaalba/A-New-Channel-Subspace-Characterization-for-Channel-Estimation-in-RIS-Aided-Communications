@@ -18,7 +18,7 @@ W = DFTBookBuild(M,M); % Produced by kron product of 2 DFT matrix
 for i = 1:M^2
 %Prepare to compute channel gains on the sphere
 gainMap = zeros(size(X));
-
+disp(i);
     %Go through all azimuth and elevation angles
     for n = 1:size(X,1)
         parfor m = 1:size(X,2)
